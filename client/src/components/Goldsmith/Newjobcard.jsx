@@ -69,10 +69,7 @@ const NewJobCard = ({
   const handleGoldRowChange = (i, field, val) => {
     const copy = [...goldRows];
     copy[i][field] = val;
-    // copy[i].purity = calculatePurity(
-    //   parseFloat(copy[i].weight),
-    //   parseFloat(copy[i].touch)
-    // );
+    console.log('weight',(val))
     setGoldRows(copy);
     // check validation
     goldRowValidation(goldRows, setFormErrors);
@@ -392,7 +389,7 @@ useEffect(() => {
 
             <div className="section">
               <h4 className="section-title" >Given Gold</h4>
-              
+              <div className="goldGrid">
               {goldRows.map((row, i) => (
                 <div key={i} className="row">
                   <div>
@@ -401,7 +398,8 @@ useEffect(() => {
                       onChange={(e) =>
                         handleGoldRowChange(i, "itemName", e.target.value)
                       }
-                      className="select"
+                      className="select givenGoldSelect"
+
                     >
                       <option value="">Select Item</option>
                       {masterItems.map((option, index) => (
@@ -427,7 +425,7 @@ useEffect(() => {
                       onChange={(e) =>
                         handleGoldRowChange(i, "weight", e.target.value)
                       }
-                      className="input"
+                      className="input givenInput"
                     />{" "}
                      
                     <br></br>
@@ -438,7 +436,7 @@ useEffect(() => {
                   </div>
                   
 
-                  <span className="operator">x</span>
+                 <div> <span className="operator">x</span></div>
                   <div>
                     <input
                       type="text"
@@ -447,14 +445,15 @@ useEffect(() => {
                       onChange={(e) =>
                         handleGoldRowChange(i, "touch", e.target.value)
                       }
-                      className="input"
+                      className="input givenTouch"
                     />
                     <br></br>
                     {formErrors[i]?.touch && (
                       <span className="error">{formErrors[i].touch}</span>
                     )}
                   </div>
-                  {!row.id && (
+                  <div>
+                      {!row.id && (
                     <MdDeleteForever
                       className="deleteIcon"
                       onClick={() => {
@@ -462,9 +461,11 @@ useEffect(() => {
                       }}
                     />
                   )}
+                  </div>
                   
                 </div>
               ))}
+              </div>
                <div className="Balance">
                    <button
                 onClick={() =>
