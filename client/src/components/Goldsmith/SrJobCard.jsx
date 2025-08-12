@@ -438,7 +438,7 @@ const SrJobCard = () => {
                             : "-"}
                         </td>
                         <td>{g?.itemName || "-"}</td>
-                        <td>{(g?.weight)?.toFixed(3) || "-"}</td>
+                        <td>{(Number(g?.weight))?.toFixed(3) || "-"}</td>
                         {i === 0 && (
                           <td rowSpan={maxRows}>{total?.givenWt || "-"}</td>
                         )}

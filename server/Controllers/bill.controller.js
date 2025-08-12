@@ -139,7 +139,7 @@ const deleteBill = async (req, res) => {
 
     if (!existingBill) {
       return res.status(404).json({ message: "Bill not found" });
-    }
+    }w
 
     await prisma.receivedDetail.deleteMany({
       where: { billId: parsedId },
