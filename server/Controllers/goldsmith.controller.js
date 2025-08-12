@@ -58,8 +58,14 @@ exports.getAllGoldsmith = async (req, res) => {
            return -1
       }
      })
-    
-    res.status(200).json(sortedGoldSmith);
+    const updatedGoldsmith=sortedGoldSmith.map((item)=>{ // set GoldSmith as Three digit
+      return{
+        ...item,
+        wastage:(item.wastage).toFixed(3)
+      }
+     })
+
+    res.status(200).json(updatedGoldsmith);
   } catch (error) {
     res.status(500).json({ message: "Error fetching goldsmith", error });
   }

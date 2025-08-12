@@ -93,7 +93,7 @@ const SrJobCard = () => {
       JSON.parse(JSON.stringify(filteredJobcard[0]?.goldSmithReceived || []))
     );
     
-    setGoldSmithWastage(filteredJobcard[0]?.jobCardTotal[0].goldSmithWastage||0);
+    setGoldSmithWastage(Number(filteredJobcard[0]?.jobCardTotal[0].goldSmithWastage).toFixed(3)||0);
     setCurrentJob(filteredJobcard[0]?.jobCardTotal[0].isFinished)
     console.log('filterJobStatus',filteredJobcard[0]?.jobCardTotal[0].isFinished)
    
@@ -285,6 +285,7 @@ const SrJobCard = () => {
   const handleOpenJobCard = async () => {
     setopen(true);
     setEdit(false);
+    console.log('goldSmith',goldSmith.goldSmithInfo.wastage)
     setGoldSmithWastage(goldSmith.goldSmithInfo.wastage);
     try {
      
@@ -454,7 +455,7 @@ const SrJobCard = () => {
                               )
                             : "-"}</td>
                         <td>{d?.itemName || "-"}</td>
-                        <td>{(d?.weight)?.toFixed(3) || "-"}</td>
+                        <td>{(Number(d?.weight))?.toFixed(3) || "-"}</td>
                        
             
                         {i === 0 && (
@@ -515,7 +516,7 @@ const SrJobCard = () => {
                   <td>
                     <b> {currentPageTotal.givenWt?.toFixed(3)}</b>
                   </td>
-                  <td colSpan={3}></td>
+                  <td colSpan={4}></td>
                   <td>
                     <b>{currentPageTotal?.itemWt?.toFixed(3)}</b>
                   </td>
@@ -525,7 +526,7 @@ const SrJobCard = () => {
                   <td>
                     <b>{currentPageTotal?.wastage?.toFixed(3)}</b>
                   </td>
-                   <td colSpan={4}></td>
+                   <td colSpan={3}></td>
                   <td>
                    <b>{currentPageTotal?.receive?.toFixed(3)}</b>
                   </td>
