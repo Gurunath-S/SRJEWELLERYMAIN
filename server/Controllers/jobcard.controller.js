@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
        return arr.map(item => ({
         ...item,
         weight:Number(item.weight).toFixed(3),
-        touch:Number(item.touch).toFixed(2)
+        touch:Number(item.touch).toFixed(2),
   }));
 };
 
@@ -133,6 +133,7 @@ const createJobCard = async (req, res) => {
       jobCard.givenGold = formatWeights(jobCard.givenGold);
       jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
       jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
+      jobCard.JobCardReceived= formatWeights(jobCard.JobCardReceived);
 });
           
      console.log('createdJobCards',allJobCards)
@@ -395,6 +396,7 @@ const updateJobCard = async (req, res) => {
       jobCard.givenGold = formatWeights(jobCard.givenGold);
       jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
       jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
+      jobCard.JobCardReceived= formatWeights(jobCard.JobCardReceived);
     });
 
     let jobCardLength=await prisma.jobCard.findMany()
@@ -547,8 +549,9 @@ const getAllJobCardByGoldsmithId = async (req, res) => {
       jobCard.givenGold = formatWeights(jobCard.givenGold);
       jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
       jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
+      jobCard.JobCardReceived= formatWeights(jobCard.JobCardReceived);
 });
-     console.log('flatten array',flatten[0].givenGold)
+    
 
     return res.status(200).json({
       goldsmith: {
@@ -556,7 +559,7 @@ const getAllJobCardByGoldsmithId = async (req, res) => {
         name: goldsmithInfo.name,
         address:goldsmithInfo.address,
         phoneNo:goldsmithInfo.phone,
-        wastage: goldsmithInfo.wastage,
+        wastage: Number(goldsmithInfo.wastage).toFixed(3),
         balance: goldsmithInfo.goldSmithBalance, // can be an array
       },
       jobCards: allJobCards,

@@ -64,15 +64,15 @@ const deductionValidation = (deductionRows, setDeductionErrors) => {
 const receiveRowValidation = (received, setReceivedErrors) => {
   const errors = received.map((row) => {
     const rowErrors = {};
-    if (!row.weight) rowErrors.weight = "Weight is required";
-    if (row.weight < 0) rowErrors.weight = "Weight is negative value";
+    if (!row.weight) rowErrors.weight = "Weight";
+    if (row.weight < 0) rowErrors.weight = "negative value";
     if (!/^\d*\.?\d*$/.test(row.weight)) {
-      rowErrors.weight = "Please Enter valid weight";
+      rowErrors.weight = "Enter valid weight";
     }
-    if (row.touch < 0) rowErrors.touch = "touch is negative value";
-    if (!row.touch) rowErrors.touch = "Touch is required";
+    if (row.touch < 0) rowErrors.touch = "negative value";
+    if (!row.touch) rowErrors.touch = "Touch";
     if (!/^\d*\.?\d*$/.test(row.touch)) {
-      rowErrors.touch = "Please Enter valid touch";
+      rowErrors.touch = "Enter valid touch";
     }
     return rowErrors;
   });
@@ -86,7 +86,7 @@ const wastageValidation = (val, setWastageErrors) => {
   const rowErrors = {};
 
   if (!val) {
-    rowErrors.wastage = "Wastage is required";
+    rowErrors.wastage = "wastage";
   } else if (!/^\d*\.?\d*$/.test(val)) {
     rowErrors.wastage = "Please enter correct wastage";
   }

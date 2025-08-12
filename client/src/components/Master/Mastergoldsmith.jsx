@@ -264,7 +264,7 @@ function Mastergoldsmith() {
                   <td>{goldsmith.name}</td>
                   <td>{goldsmith.phone}</td>
                   <td>{goldsmith.address}</td>
-                  <td>{(goldsmith.wastage).toFixed(3)}</td>
+                  <td>{(Number(goldsmith.wastage)).toFixed(3)}</td>
                 </tr>
               ))}
             </tbody>

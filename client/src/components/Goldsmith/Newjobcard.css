@@ -473,6 +473,9 @@
   font-size: 16px;
   margin-top: 10px;
 }
+.givenGoldSelect{
+  width:50px; 
+}
 
 
 @media print {
@@ -489,6 +492,7 @@
     margin: 0 !important;
     padding: 0 !important;
   }
+  
   .deduction-section{
     flex: 2 !important;
   }
@@ -512,17 +516,22 @@
 .watageGoldSmith input{
   width: 60px !important;
 }
-.givenGoldSelect,.givenTouch{
+.givenTouch{
  width: 50px !important;
 }
 .givenInput{
-  width: 90px !important;
+  width: 80px !important;
 }
+
+
+
 .select,.deduction-select{
      appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+
+
 
  
 
