@@ -377,6 +377,7 @@ const prisma = new PrismaClient();
 
 const createJobCard = async (req, res) => {
   const { goldsmithId,goldRows,total,receivedAmount,goldSmithBalance} = req.body;
+  console.log('goldRows',goldRows)
 
   try {
     //  Validate Goldsmith
@@ -406,10 +407,12 @@ const createJobCard = async (req, res) => {
     const givenGoldArr = goldRows.map((item) => ({
      
       itemName: item.itemName || null,
-      weight:parseFloat(item.weight),
+      weight:item.weight*1,
       touch: parseFloat(item.touch)||null,
       
     }));
+
+    
 
    // Job Card Total
     

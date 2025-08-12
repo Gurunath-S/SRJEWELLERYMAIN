@@ -77,16 +77,24 @@
   .row {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    
-    
+    gap: 1.2px;
   }
+  
  .itemsGrid {
   display: grid;
   grid-template-columns: 1fr auto ; /* 8 columns */
   gap: 1.5px;
   align-items: center;
 }
+.goldGrid{
+  display: grid;
+  grid-template-columns: 1fr auto ; /* 8 columns */
+  gap: 1.5px;
+  align-items: center;
+}
+
+
+
   
   .input {
     flex: 1;
@@ -122,6 +130,13 @@
     box-sizing: border-box;
     min-width: 100px;
   }
+  .givenInput{
+  width: 75px;
+}
+.givenTouch{
+  width:60px
+}
+
   
   .circle-button {
     font-size: 1.3rem;
@@ -190,7 +205,7 @@
   .input-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
     margin-top: 10px;
    
   }
@@ -497,6 +512,18 @@
 .watageGoldSmith input{
   width: 60px !important;
 }
+.givenGoldSelect,.givenTouch{
+ width: 50px !important;
+}
+.givenInput{
+  width: 65px !important;
+}
+.select,.deduction-select{
+     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
  
 
   .jobcard-page.print-jobcard {

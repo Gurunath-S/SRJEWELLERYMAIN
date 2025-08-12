@@ -52,11 +52,11 @@ const SrJobCard = () => {
 
   const currentPageTotal = paginatedData.reduce(
     (acc, job) => {
-      acc.givenWt += job.jobCardTotal[0].givenWt;
-      acc.itemWt += job.jobCardTotal[0].itemWt;
-      acc.stoneWt += job.jobCardTotal[0].stoneWt;
-      acc.wastage += job.jobCardTotal[0].wastage;
-      acc.receive += job.jobCardTotal[0].receivedTotal;
+      acc.givenWt += job.jobCardTotal[0]?.givenWt;
+      acc.itemWt += job.jobCardTotal[0]?.itemWt;
+      acc.stoneWt += job.jobCardTotal[0]?.stoneWt;
+      acc.wastage += job.jobCardTotal[0]?.wastage;
+      acc.receive += job.jobCardTotal[0]?.receivedTotal;
       return acc;
     },
     { givenWt: 0, itemWt: 0, stoneWt: 0, wastage: 0,receive:0 } // Initial accumulator
@@ -477,7 +477,7 @@ const SrJobCard = () => {
                             <>
                             <td rowSpan={maxRows}>{total?.receivedTotal || "-"}</td>
                                 <td rowSpan={maxRows}>
-                              {total.isFinished === "true" ? (
+                              {total?.isFinished === "true" ? (
                                 <FaCheck />
                               ) : (
                                 <GrFormSubtract size={30}/>
@@ -517,17 +517,17 @@ const SrJobCard = () => {
                   </td>
                   <td colSpan={3}></td>
                   <td>
-                    <b>{currentPageTotal.itemWt?.toFixed(3)}</b>
+                    <b>{currentPageTotal?.itemWt?.toFixed(3)}</b>
                   </td>
                   <td>
-                    <b>{currentPageTotal.stoneWt?.toFixed(3)}</b>
+                    <b>{currentPageTotal?.stoneWt?.toFixed(3)}</b>
                   </td>
                   <td>
-                    <b>{currentPageTotal.wastage?.toFixed(3)}</b>
+                    <b>{currentPageTotal?.wastage?.toFixed(3)}</b>
                   </td>
                    <td colSpan={4}></td>
                   <td>
-                   <b>{currentPageTotal.receive?.toFixed(3)}</b>
+                   <b>{currentPageTotal?.receive?.toFixed(3)}</b>
                   </td>
                   <td colSpan={2}></td>
                 </tr>

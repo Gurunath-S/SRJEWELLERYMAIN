@@ -52,8 +52,14 @@ exports.getAllGoldsmith = async (req, res) => {
         goldSmithBalance:true 
       }
     });
-    console.log('ALL goldsmith',goldsmith)
-    res.status(200).json(goldsmith);
+   
+    const sortedGoldSmith=goldsmith.sort((a,b)=>{ // sorted in  alphabatic order
+      if(a.name<b.name){
+           return -1
+      }
+     })
+    
+    res.status(200).json(sortedGoldSmith);
   } catch (error) {
     res.status(500).json({ message: "Error fetching goldsmith", error });
   }

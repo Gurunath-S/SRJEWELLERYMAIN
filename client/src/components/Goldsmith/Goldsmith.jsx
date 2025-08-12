@@ -353,6 +353,7 @@ const Goldsmith = () => {
           margin="normal"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          autoComplete="off"
           sx={{
             "& .MuiOutlinedInput-root": {
               borderRadius: "30px",
@@ -407,7 +408,7 @@ const Goldsmith = () => {
                   <TableCell align="center">{goldsmith.name}</TableCell>
                   <TableCell align="center">{goldsmith.phone}</TableCell>
                   <TableCell align="center">{goldsmith.address}</TableCell>
-                  <TableCell align="center">{goldsmith.wastage}</TableCell>
+                  <TableCell align="center">{(goldsmith.wastage).toFixed(3)}</TableCell>
                   <TableCell align="center">
                     <Tooltip title="View Jobcard">
                       <Link
