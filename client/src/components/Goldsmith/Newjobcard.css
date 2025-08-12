@@ -89,7 +89,6 @@
 .goldGrid{
   display: grid;
   grid-template-columns: 1fr auto ; /* 8 columns */
-  gap: 1.5px;
   align-items: center;
 }
 
@@ -131,11 +130,12 @@
     min-width: 100px;
   }
   .givenInput{
-  width: 75px;
+  width: 90px;
 }
 .givenTouch{
   width:60px
 }
+
 
   
   .circle-button {
@@ -516,7 +516,7 @@
  width: 50px !important;
 }
 .givenInput{
-  width: 65px !important;
+  width: 90px !important;
 }
 .select,.deduction-select{
      appearance: none;
