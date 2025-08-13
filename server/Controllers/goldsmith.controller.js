@@ -99,6 +99,7 @@ exports.updateGoldsmith = async (req, res) => {
         wastage:parseFloat(wastage)
       },
     });
+    
     res.status(200).json(updatedGoldsmith);
   } catch (error) {
     res.status(500).json({ message: "Error updating goldsmith", error });

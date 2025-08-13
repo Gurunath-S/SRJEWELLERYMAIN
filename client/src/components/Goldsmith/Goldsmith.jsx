@@ -93,6 +93,7 @@ const Goldsmith = () => {
 
   const handleEditClick = (goldsmith) => {
     setSelectedGoldsmith(goldsmith);
+    console.log('w',goldsmith.wastage)
     setFormData({
       name: goldsmith.name,
       phone: goldsmith.phone,
@@ -159,10 +160,10 @@ const Goldsmith = () => {
           body: JSON.stringify(formData),
         }
       );
-
+    
       if (response.ok) {
         toast.success("Goldsmith updated successfully");
-
+        console.log('response',response)
         setGoldsmith((prev) =>
           prev.map((g) =>
             g.id === selectedGoldsmith.id ? { ...g, ...formData } : g
