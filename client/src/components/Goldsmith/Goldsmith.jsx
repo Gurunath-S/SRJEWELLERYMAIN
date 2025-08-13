@@ -321,11 +321,9 @@ const Goldsmith = () => {
             setReceived(data.jobcard[0].goldSmithReceived);
             setSelectedName(data.jobcard[0].goldsmith);
             setJobCardTotal(data.jobcard[0].jobCardTotal);
-            setGoldSmithWastage(data.jobcard[0].jobCardTotal[0].goldSmithWastage)
-             setCurrentJob(data.jobcard[0].jobCardTotal[0].isFinished)
-            console.log('wastage',data.jobcard[0].jobCardTotal[0].goldSmithWastage)
+            setGoldSmithWastage(Number(data.jobcard[0].jobCardTotal[0].goldSmithWastage)?.toFixed(3))
+            setCurrentJob(data.jobcard[0].jobCardTotal[0].isFinished)
             setLastJobCard(data.lastJobCard||{})
-            console.log('balance',data.jobCardBalance)
             setOpeningBalance(data.jobCardBalance);
             setOpen(true);
             setEdit(true);

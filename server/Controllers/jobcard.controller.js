@@ -133,7 +133,7 @@ const createJobCard = async (req, res) => {
       jobCard.givenGold = formatWeights(jobCard.givenGold);
       jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
       jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
-      jobCard.JobCardReceived= formatWeights(jobCard.JobCardReceived);
+      jobCard.goldSmithReceived= formatWeights(jobCard.goldSmithReceived);
 });
           
      console.log('createdJobCards',allJobCards)
@@ -396,7 +396,7 @@ const updateJobCard = async (req, res) => {
       jobCard.givenGold = formatWeights(jobCard.givenGold);
       jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
       jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
-      jobCard.JobCardReceived= formatWeights(jobCard.JobCardReceived);
+      jobCard.goldSmithReceived= formatWeights(jobCard.goldSmithReceived);
     });
 
     let jobCardLength=await prisma.jobCard.findMany()
@@ -487,13 +487,15 @@ const getJobCardById=async(req,res)=>{
            balance=prevJob[0].balance
            
         }
-         console.log('balance', balance);
-        
-        
-        
-      
-       
-        let lastJobCard=(await prisma.jobcardTotal.findMany({where:{goldsmithId:goldSmithInfo.goldsmithId}})).at(-1)
+        const flatten=jobCardInfo
+   
+     flatten.forEach(jobCard => {
+      jobCard.givenGold = formatWeights(jobCard.givenGold);
+      jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
+      jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
+      jobCard.goldSmithReceived= formatWeights(jobCard.goldSmithReceived);
+});
+      let lastJobCard=(await prisma.jobcardTotal.findMany({where:{goldsmithId:goldSmithInfo.goldsmithId}})).at(-1)
        
        return res.status(200).json({"jobcard":jobCardInfo,jobCardBalance:balance,lastJobCard:lastJobCard})
 
@@ -549,7 +551,7 @@ const getAllJobCardByGoldsmithId = async (req, res) => {
       jobCard.givenGold = formatWeights(jobCard.givenGold);
       jobCard.deliveryItem = formatWeights(jobCard.deliveryItem);
       jobCard.additionalWeight = formatWeights(jobCard.additionalWeight);
-      jobCard.JobCardReceived= formatWeights(jobCard.JobCardReceived);
+      jobCard.goldSmithReceived= formatWeights(jobCard.goldSmithReceived);
 });
     
 
@@ -560,7 +562,7 @@ const getAllJobCardByGoldsmithId = async (req, res) => {
         address:goldsmithInfo.address,
         phoneNo:goldsmithInfo.phone,
         wastage: Number(goldsmithInfo.wastage).toFixed(3),
-        balance: goldsmithInfo.goldSmithBalance, // can be an array
+        balance: goldsmithInfo.goldSmithBalance, 
       },
       jobCards: allJobCards,
       jobCardLength:jobCardLength.length+1,
