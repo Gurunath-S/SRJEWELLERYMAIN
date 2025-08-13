@@ -24,6 +24,7 @@ const itemValidation = (itemRows, setItemErrors) => {
   const errors = itemRows.map((row) => {
     const rowErrors = {};
     if (!row.itemName) rowErrors.itemName = "Item Name";
+     if (!row.sealName) rowErrors.sealName = "seal Name";
     if (!row.weight) rowErrors.weight = "Weight";
     if (row.weight < 0) rowErrors.weight = "negative value";
 

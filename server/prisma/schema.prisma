@@ -31,6 +31,12 @@ model MasterItem {
   createdAt DateTime @default(now())
   items     Item[]   
 }
+model MasterSealItem {
+  id        Int      @id @default(autoincrement())
+  sealName  String
+  createdAt DateTime @default(now())
+    
+}
 model MasterTouch{
   id        Int @id @default(autoincrement())
   touch     Float
@@ -113,6 +119,7 @@ model DeliveryItem{
   jobcardId    Int
   weight       Float?
   itemName     String?
+  sealName     String?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   jobCard      JobCard @relation(fields: [jobcardId], references: [id])

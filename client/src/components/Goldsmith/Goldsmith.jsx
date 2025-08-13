@@ -49,6 +49,7 @@ const Goldsmith = () => {
   const [openingBalance, setOpeningBalance] = useState(0);
   const [selectedName, setSelectedName] = useState({});
   const [masterItems, setMasterItems] = useState([]);
+  const [masterSeal, setMasterSeal] = useState([]);
   const [noJobCard, setNoJobCard] = useState({});
   const [lastJobCard,setLastJobCard]=useState({})
   const [goldSmithWastage,setGoldSmithWastage]=useState(0)
@@ -82,13 +83,19 @@ const Goldsmith = () => {
         console.error("Error fetching goldsmith data:", error);
       }
     };
+    //  await axios.get(`${BACKEND_SERVER_URL}/api/masterseal`);
     const fetchMasterItem = async () => {
       const res = await axios.get(`${BACKEND_SERVER_URL}/api/master-items`);
       setMasterItems(res.data);
     };
+    const fetchMasterSealItem  = async () => {
+      const res =await axios.get(`${BACKEND_SERVER_URL}/api/masterseal`);
+      setMasterSeal(res.data);
+    };
 
     fetchGoldsmiths();
     fetchMasterItem();
+    fetchMasterSealItem();
   }, []);
 
   const handleEditClick = (goldsmith) => {
@@ -268,14 +275,14 @@ const Goldsmith = () => {
   };
   
  
-   let filterGoldSmith= goldsmith.filter((gs) => {
+   let filterGoldSmith= goldsmith.length>=1 ? goldsmith.filter((gs) => {
     const nameMatch =
       gs.name && gs.name.toLowerCase().startsWith(searchTerm.toLowerCase());
     const phoneMatch = gs.phone && gs.phone.includes(searchTerm);
     const addressMatch =
       gs.address && gs.address.toLowerCase().includes(searchTerm.toLowerCase());
     return nameMatch || phoneMatch || addressMatch;
-  });
+  }):[]
   
    
 
@@ -505,6 +512,7 @@ const Goldsmith = () => {
           received={received}
           setReceived={setReceived}
           masterItems={masterItems}
+          masterSeal={masterSeal}
           isFinished={currentJob}
           handleUpdateJobCard={handleUpdateJobCard}
           jobCardId={jobCardId}
