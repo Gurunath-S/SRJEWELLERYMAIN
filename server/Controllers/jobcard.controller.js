@@ -231,7 +231,7 @@ const updateJobCard = async (req, res) => {
     }
       if(itemRow.length>=1){
         for(const item of itemRow){
-          if(item?.id){ //if id is there update or create
+          if(item?.id){ //if id is there update otherwise its create new one
            await prisma.deliveryItem.update({
               where:{
                id:item.id,
@@ -247,6 +247,7 @@ const updateJobCard = async (req, res) => {
             data:{
             jobcardId:parseInt(jobCardId),
             itemName:item.itemName|| null,
+            sealName:item.sealName||null,
             weight: parseFloat(item.weight),   
            }
         })

@@ -6,6 +6,7 @@ const userRoutes = require("./Routes/user.routes");
 const customerRoutes = require("./Routes/customer.routes");
 const goldsmithRoutes = require("./Routes/goldsmith.routes");
 const masterItemRoutes = require("./Routes/masteritem.routes");
+const masterSealRoutes = require("./Routes/masterSeal.routes");
 const stockRoutes = require("./Routes/coinstock.routes");
 const jobCardRoutes = require("./Routes/jobcard.routes");
 const billRoutes = require("./Routes/bill.routes");
@@ -36,6 +37,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/master-items", masterItemRoutes);
+app.use("/api/masterseal",masterSealRoutes)
 app.use("/api/v1/stocks", stockRoutes);
 app.use("/api/goldsmith", goldsmithRoutes);
 app.use("/api/job-cards", jobCardRoutes);

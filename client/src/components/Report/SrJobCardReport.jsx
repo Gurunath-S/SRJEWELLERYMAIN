@@ -281,7 +281,7 @@ const JobCardReport = () => {
                       <th >Date</th>
                       <th >JobCard Id</th>
                       <th colSpan="5">Given Wt</th>
-                      <th colSpan="3">Item Wt</th>
+                      <th colSpan="4">Item Wt</th>
                       <th >Stone Wt</th>
                       <th >After Wastage</th>
                       <th >Balance</th>
@@ -297,6 +297,7 @@ const JobCardReport = () => {
                       <th>Touch</th>
                       <th>Dly Date</th>
                       <th>Name</th>
+                      <th>Seal Name</th>
                       <th>Weight</th>
                       <th colSpan={3}></th>
                       <th>Weight</th>
@@ -359,6 +360,7 @@ const JobCardReport = () => {
                                 : "-"}
                             </td>
                             <td>{d?.itemName || "-"}</td>
+                            <td>{d?.sealName || "-"}</td>
                             <td>{d?.weight || "-"}</td>
                             {i === 0 && (
                               <>
@@ -399,7 +401,7 @@ const JobCardReport = () => {
                       <td>
                         <b>{currentPageTotal.givenWt.toFixed(3)}</b>
                       </td>
-                      <td colSpan="4"></td>
+                      <td colSpan="5"></td>
                       <td>
                         <b>{currentPageTotal.itemWt.toFixed(3)}</b>
                       </td>

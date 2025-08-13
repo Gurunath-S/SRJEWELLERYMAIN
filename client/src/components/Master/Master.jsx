@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Mastergoldsmith from "./Mastergoldsmith";
 import Masteradditems from "./Masteradditems";
+import MasterSeal from "./MasterSeal";
 import { FiLogOut, FiArrowLeft } from "react-icons/fi";
 
 const Master = () => {
@@ -79,7 +80,13 @@ const Master = () => {
             onClick={() => handleTabChange("items")}
             style={getNavButtonStyle("items")}
           >
-            Items
+            Item Master
+          </button>
+           <button
+            onClick={() => handleTabChange("seal")}
+            style={getNavButtonStyle("seal")}
+          >
+            seal Master
           </button>
 
         </div>
@@ -93,6 +100,7 @@ const Master = () => {
       <div style={contentContainer}>
         {activeTab === "goldsmith" &&<Mastergoldsmith />}
         {activeTab === "items" &&<Masteradditems />}
+        {activeTab === "seal" && <MasterSeal/>}
       </div>
 
     </div>

@@ -13,6 +13,7 @@ const SrJobCard = () => {
   const navigate = useNavigate();
   const { id, goldsmithname } = useParams();
   const [masterItems, setMasterItems] = useState([]);
+  const [masterSeal, setMasterSeal] = useState([]);
   const [goldSmith, setGoldSmith] = useState({
     goldSmithInfo: {
       id: "",
@@ -29,9 +30,11 @@ const SrJobCard = () => {
   const [jobCardId, setJobCardId] = useState(null);
   const [jobCardLength, setJobCardLength] = useState(null);
   const [goldRows, setGoldRows] = useState([
-    { itemName: "", weight: "", touch: 91.7 },
+    { itemName: "", weight: "", touch: "91.70" },
   ]);
-  const [itemRows, setItemRows] = useState([{ weight: "", itemName: "" }]);
+  const [itemRows, setItemRows] = useState([
+    { weight: "", itemName: "", sealName: "" },
+  ]);
   const [deductionRows, setDeductionRows] = useState([
     { type: "Stone", customType: "", weight: "" },
   ]);
@@ -39,7 +42,7 @@ const SrJobCard = () => {
   const [open, setopen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [jobCardIndex, setJobCardIndex] = useState(0);
-  const [currentJob,setCurrentJob]=useState("")
+  const [currentJob, setCurrentJob] = useState("");
   const [page, setPage] = useState(0); // 0-indexed for TablePagination
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -59,7 +62,7 @@ const SrJobCard = () => {
       acc.receive += job.jobCardTotal[0]?.receivedTotal;
       return acc;
     },
-    { givenWt: 0, itemWt: 0, stoneWt: 0, wastage: 0,receive:0 } // Initial accumulator
+    { givenWt: 0, itemWt: 0, stoneWt: 0, wastage: 0, receive: 0 } // Initial accumulator
   );
 
   const handleChangePage = (event, newPage) => {
@@ -74,11 +77,9 @@ const SrJobCard = () => {
   const handleFilterJobCard = (id, jobindex) => {
     setJobCardId(id);
     setJobCardIndex(jobindex);
- 
+
     const tempJobCard = [...jobCards];
-    const filteredJobcard = tempJobCard.filter(
-      (item,_) => item.id === id
-    );
+    const filteredJobcard = tempJobCard.filter((item, _) => item.id === id);
     console.log("filter", filteredJobcard);
     setGoldRows(
       JSON.parse(JSON.stringify(filteredJobcard[0]?.givenGold || []))
@@ -92,15 +93,21 @@ const SrJobCard = () => {
     setReceived(
       JSON.parse(JSON.stringify(filteredJobcard[0]?.goldSmithReceived || []))
     );
-    
-    setGoldSmithWastage(Number(filteredJobcard[0]?.jobCardTotal[0].goldSmithWastage).toFixed(3)||0);
-    setCurrentJob(filteredJobcard[0]?.jobCardTotal[0].isFinished)
-    console.log('filterJobStatus',filteredJobcard[0]?.jobCardTotal[0].isFinished)
-   
-    let lastBalance = filteredJobcard[0]?.jobCardTotal[0].openBal ;
+
+    setGoldSmithWastage(
+      Number(filteredJobcard[0]?.jobCardTotal[0].goldSmithWastage).toFixed(3) ||
+        0
+    );
+    setCurrentJob(filteredJobcard[0]?.jobCardTotal[0].isFinished);
+    console.log(
+      "filterJobStatus",
+      filteredJobcard[0]?.jobCardTotal[0].isFinished
+    );
+
+    let lastBalance = filteredJobcard[0]?.jobCardTotal[0].openBal;
     console.log("lastBalance", lastBalance);
     setOpeningBal(lastBalance);
-   
+
     setopen(true);
     setEdit(true);
   };
@@ -130,16 +137,14 @@ const SrJobCard = () => {
         itemWt: roundTo3(totalItemWt),
         stoneWt: roundTo3(totalDeductionWt),
         wastage: roundTo3(totalWastage),
-        goldSmithWastage:roundTo3(goldSmithWastage),
+        goldSmithWastage: roundTo3(goldSmithWastage),
         balance: roundTo3(totalBalance),
         openBal: roundTo3(openBal),
-        receivedTotal:roundTo3(totalReceivedWeight)
-        
+        receivedTotal: roundTo3(totalReceivedWeight),
       },
     };
-    console.log("payload update", totalReceivedWeight);
+    console.log("payload update", payload);
 
-    
     try {
       const response = await axios.put(
         `${BACKEND_SERVER_URL}/api/job-cards/${goldSmith.goldSmithInfo.id}/${jobCardId}`,
@@ -165,7 +170,7 @@ const SrJobCard = () => {
       }));
       setopen(false);
       setEdit(false);
-      setGoldRows([{ itemName: "", weight: "", touch: 91.7 }]);
+      setGoldRows([{ itemName: "", weight: "", touch: "91.70" }]);
       setItemRows([{ weight: "", itemName: "" }]);
       setDeductionRows([{ type: "Stone", customType: "", weight: "" }]);
       setReceived([]);
@@ -199,10 +204,10 @@ const SrJobCard = () => {
         itemWt: roundTo3(totalItemWt),
         stoneWt: roundTo3(totalDeductionWt),
         wastage: roundTo3(totalWastage),
-        goldSmithWastage:roundTo3(goldSmithWastage),
+        goldSmithWastage: roundTo3(goldSmithWastage),
         balance: roundTo3(totalBalance),
         openBal: roundTo3(openBal),
-        receivedTotal:roundTo3(totalReceivedWeight)
+        receivedTotal: roundTo3(totalReceivedWeight),
       },
     };
     console.log("payload", payload);
@@ -226,7 +231,7 @@ const SrJobCard = () => {
           balance: response.data.goldSmithBalance.balance,
         },
       }));
-      setGoldRows([{ itemName: "", weight: "", touch: 91.7 }]);
+      setGoldRows([{ itemName: "", weight: "", touch: "91.70" }]);
       setItemRows([{ weight: "", itemName: "" }]);
       setDeductionRows([{ type: "Stone", customType: "", weight: "" }]);
       setReceived([]);
@@ -244,7 +249,7 @@ const SrJobCard = () => {
     const fetchJobCards = async () => {
       try {
         const res = await axios.get(
-          `${BACKEND_SERVER_URL}/api/job-cards/${id}`
+          `${BACKEND_SERVER_URL}/api/job-cards/${id}` // this is GoldSmith Id from useParams
         );
         console.log(res.data);
         const goldSmithRes = res.data.goldsmith;
@@ -272,12 +277,17 @@ const SrJobCard = () => {
       const res = await axios.get(`${BACKEND_SERVER_URL}/api/master-items`);
       setMasterItems(res.data);
     };
+    const fetchMasterSealItem = async () => {
+      const res = await axios.get(`${BACKEND_SERVER_URL}/api/masterseal`);
+      setMasterSeal(res.data);
+    };
     fetchJobCards();
     fetchMasterItem();
+    fetchMasterSealItem();
   }, []);
   const handleClosePop = () => {
     setopen(false);
-    setGoldRows([{ itemName: "", weight: "", touch: 91.7 }]);
+    setGoldRows([{ itemName: "", weight: "", touch: "91.70" }]);
     setItemRows([{ weight: "", itemName: "" }]);
     setDeductionRows([{ type: "Stone", customType: "", weight: "" }]);
     setReceived([]);
@@ -285,14 +295,13 @@ const SrJobCard = () => {
   const handleOpenJobCard = async () => {
     setopen(true);
     setEdit(false);
-    console.log('goldSmith',goldSmith.goldSmithInfo.wastage)
+    console.log("goldSmith", goldSmith.goldSmithInfo.wastage);
     setGoldSmithWastage(goldSmith.goldSmithInfo.wastage);
     try {
-     
       const res = await axios.get(
         `${BACKEND_SERVER_URL}/api/job-cards/${id}/lastBalance` // this id is GoldSmithId
       );
-       
+
       res.data.status === "nobalance"
         ? setOpeningBal(res.data.balance)
         : setOpeningBal(res.data.balance);
@@ -314,38 +323,49 @@ const SrJobCard = () => {
           draggable={false}
         />
 
-        < div className="goldSmith">
-        
-            <h3 className="goldsmithhead">Gold Smith Information</h3>
-            <div className="goldSmithInfo">
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:"20px"}}>
-                <p>
+        <div className="goldSmith">
+          <h3 className="goldsmithhead">Gold Smith Information</h3>
+          <div className="goldSmithInfo">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "20px",
+              }}
+            >
+              <p>
                 <strong>Name:</strong> {goldSmith?.goldSmithInfo?.name}
-               </p>
-               <p>
-                <strong>Phone Number:</strong> {goldSmith?.goldSmithInfo?.phoneNo}
-               </p>
+              </p>
+              <p>
+                <strong>Phone Number:</strong>{" "}
+                {goldSmith?.goldSmithInfo?.phoneNo}
+              </p>
             </div>
 
-             {jobCards.length > 0 && jobCards.at(-1)?.jobCardTotal?.length > 0 && (
-          <div >
-            
-              {jobCards.at(-1).jobCardTotal[0].balance > 0
-                ? <p style={{color:"green",fontWeight:"bolder"}}>Gold Smith Should Given {jobCards
-                    .at(-1)
-                    .jobCardTotal[0].balance.toFixed(3)}g</p>
-                : jobCards.at(-1).jobCardTotal[0].balance<0 ?<p style={{color:"red",fontWeight:"bolder"}}>Owner Should Given {jobCards
-                    .at(-1)
-                    .jobCardTotal[0].balance.toFixed(3)} g</p>:
-                    <p style={{color:"black",fontWeight:"bolder"}}>Balance Nill: {jobCards
-                    .at(-1)
-                    .jobCardTotal[0].balance.toFixed(3)} g</p> }
-            
-          </div>
-        )}
+            {jobCards.length > 0 &&
+              jobCards.at(-1)?.jobCardTotal?.length > 0 && (
+                <div>
+                  {jobCards.at(-1).jobCardTotal[0].balance > 0 ? (
+                    <p style={{ color: "green", fontWeight: "bolder" }}>
+                      Gold Smith Should Given{" "}
+                      {jobCards.at(-1).jobCardTotal[0].balance.toFixed(3)}g
+                    </p>
+                  ) : jobCards.at(-1).jobCardTotal[0].balance < 0 ? (
+                    <p style={{ color: "red", fontWeight: "bolder" }}>
+                      Owner Should Given{" "}
+                      {jobCards.at(-1).jobCardTotal[0].balance.toFixed(3)} g
+                    </p>
+                  ) : (
+                    <p style={{ color: "black", fontWeight: "bolder" }}>
+                      Balance Nill:{" "}
+                      {jobCards.at(-1).jobCardTotal[0].balance.toFixed(3)} g
+                    </p>
+                  )}
+                </div>
+              )}
 
-      
-             <button
+            <button
               className="addbtn"
               onClick={() => {
                 handleOpenJobCard();
@@ -353,23 +373,19 @@ const SrJobCard = () => {
             >
               Add New JobCard
             </button>
-            </div>
-          
-
-          
+          </div>
         </div>
-       
 
-        <div className="jobcardTable" >
+        <div className="jobcardTable">
           {paginatedData.length >= 1 ? (
-            <table  >
+            <table>
               <thead className="jobCardThead">
-                <tr >
+                <tr>
                   <th rowSpan={2}>S.No</th>
                   <th rowSpan={2}>Date</th>
                   <th rowSpan={2}>JobCard Id</th>
                   <th colSpan={5}>Given Wt</th>
-                  <th colSpan={3}>Item Wt</th>
+                  <th colSpan={4}>Item Wt</th>
                   <th rowSpan={2}>Stone Wt</th>
                   <th rowSpan={2}>After Wastage</th>
                   <th rowSpan={2}>Balance</th>
@@ -377,14 +393,15 @@ const SrJobCard = () => {
                   <th rowSpan={2}>isFinished</th>
                   <th rowSpan={2}>Action</th>
                 </tr>
-                <tr >
-                  <th >Issue Date</th>
+                <tr>
+                  <th>Issue Date</th>
                   <th>Name</th>
                   <th>Weight</th>
                   <th>GivenTotal</th>
                   <th>Touch</th>
                   <th>Dly Date</th>
                   <th>Name</th>
+                  <th>Seal Name</th>
                   <th>Weight</th>
                   <th>Weight</th>
                   <th>Touch</th>
@@ -395,24 +412,27 @@ const SrJobCard = () => {
                 {paginatedData.map((job, jobIndex) => {
                   const given = job.givenGold;
                   const delivery = job.deliveryItem;
-                  const receive=job.goldSmithReceived
-                  const maxRows = Math.max(given?.length, delivery?.length,receive?.length) || 1;
+                  const receive = job.goldSmithReceived;
+                  const maxRows =
+                    Math.max(
+                      given?.length,
+                      delivery?.length,
+                      receive?.length
+                    ) || 1;
 
                   return [...Array(maxRows)].map((_, i) => {
                     const g = given?.[i] || {};
                     const d = delivery?.[i] || {};
                     const r = receive?.[i] || {};
                     const total = job.jobCardTotal?.[0];
-                    
 
                     return (
                       <tr key={`${job.id}-${i}`}>
                         {i === 0 && (
                           <>
-                            <td rowSpan={maxRows} > {jobIndex + 1}</td>
+                            <td rowSpan={maxRows}> {jobIndex + 1}</td>
                             <td rowSpan={maxRows}>
-                              
-                                {new Date(job.createdAt).toLocaleDateString(
+                              {new Date(job.createdAt).toLocaleDateString(
                                 "en-GB",
                                 {
                                   day: "2-digit",
@@ -420,7 +440,6 @@ const SrJobCard = () => {
                                   year: "numeric",
                                 }
                               )}
-                              
                             </td>
                             <td rowSpan={maxRows}>{job.id}</td>
                           </>
@@ -439,12 +458,14 @@ const SrJobCard = () => {
                             : "-"}
                         </td>
                         <td>{g?.itemName || "-"}</td>
-                        <td>{(Number(g?.weight))?.toFixed(3) || "-"}</td>
+                        <td>{Number(g?.weight)?.toFixed(3) || "-"}</td>
                         {i === 0 && (
                           <td rowSpan={maxRows}>{total?.givenWt || "-"}</td>
                         )}
                         <td>{g?.touch || "-"}</td>
-                          <td> {d?.createdAt
+                        <td>
+                          {" "}
+                          {d?.createdAt
                             ? new Date(d?.createdAt).toLocaleDateString(
                                 "en-GB",
                                 {
@@ -453,11 +474,12 @@ const SrJobCard = () => {
                                   year: "numeric",
                                 }
                               )
-                            : "-"}</td>
+                            : "-"}
+                        </td>
                         <td>{d?.itemName || "-"}</td>
-                        <td>{(Number(d?.weight))?.toFixed(3) || "-"}</td>
-                       
-            
+                        <td>{d?.sealName || "-"}</td>
+                        <td>{Number(d?.weight)?.toFixed(3) || "-"}</td>
+
                         {i === 0 && (
                           <>
                             <td rowSpan={maxRows}>
@@ -469,22 +491,24 @@ const SrJobCard = () => {
                             <td rowSpan={maxRows}>
                               {(total?.balance).toFixed(3) ?? "-"}
                             </td>
-                             </>
+                          </>
                         )}
-                           <td>{r?.weight||"-"}</td>
-                           <td>{r?.touch||"-"}</td>
-                  
-                          {i===0 && (
-                            <>
-                            <td rowSpan={maxRows}>{total?.receivedTotal || "-"}</td>
-                                <td rowSpan={maxRows}>
+                        <td>{r?.weight || "-"}</td>
+                        <td>{r?.touch || "-"}</td>
+
+                        {i === 0 && (
+                          <>
+                            <td rowSpan={maxRows}>
+                              {total?.receivedTotal || "-"}
+                            </td>
+                            <td rowSpan={maxRows}>
                               {total?.isFinished === "true" ? (
                                 <FaCheck />
                               ) : (
-                                <GrFormSubtract size={30}/>
+                                <GrFormSubtract size={30} />
                               )}
                             </td>
-                      
+
                             <td rowSpan={maxRows}>
                               <button
                                 style={{
@@ -498,25 +522,24 @@ const SrJobCard = () => {
                               >
                                 View
                               </button>
-                            </td>  
-                            
-                            </>
-                          
-                          )}
-                         
+                            </td>
+                          </>
+                        )}
                       </tr>
                     );
                   });
                 })}
-               </tbody>
+              </tbody>
 
-               <tfoot className="totalOfJobCard">
-                  <tr >
-                  <td colSpan={5}><b>Total</b></td>
+              <tfoot className="totalOfJobCard">
+                <tr>
+                  <td colSpan={5}>
+                    <b>Total</b>
+                  </td>
                   <td>
                     <b> {currentPageTotal.givenWt?.toFixed(3)}</b>
                   </td>
-                  <td colSpan={4}></td>
+                  <td colSpan={5}></td>
                   <td>
                     <b>{currentPageTotal?.itemWt?.toFixed(3)}</b>
                   </td>
@@ -526,20 +549,19 @@ const SrJobCard = () => {
                   <td>
                     <b>{currentPageTotal?.wastage?.toFixed(3)}</b>
                   </td>
-                   <td colSpan={3}></td>
+                  <td colSpan={3}></td>
                   <td>
-                   <b>{currentPageTotal?.receive?.toFixed(3)}</b>
+                    <b>{currentPageTotal?.receive?.toFixed(3)}</b>
                   </td>
                   <td colSpan={2}></td>
                 </tr>
-               </tfoot>
+              </tfoot>
             </table>
           ) : (
             <span className="noJobCard">No JobCard For this GoldSmith</span>
           )}
           {jobCards.length >= 1 && (
             <TablePagination
-              
               component="div"
               count={jobCards.length}
               page={page}
@@ -566,6 +588,7 @@ const SrJobCard = () => {
           received={received}
           setReceived={setReceived}
           masterItems={masterItems}
+          masterSeal={masterSeal}
           handleSaveJobCard={handleSaveJobCard}
           handleUpdateJobCard={handleUpdateJobCard}
           jobCardLength={jobCardLength}
