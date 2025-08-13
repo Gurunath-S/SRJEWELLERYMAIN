@@ -586,7 +586,7 @@ useEffect(() => {
               </div>
           <div className="wastageBox">
               <div className="deduction-section" >
-                <h4  className="section-title">Stone Section </h4>
+                <h4  className="section-title">BC Section </h4>
                 {deductionRows.map((deduction, i) => (
                   <div key={i} className="deduction-row">
                     <div>
