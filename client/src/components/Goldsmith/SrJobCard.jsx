@@ -30,7 +30,7 @@ const SrJobCard = () => {
   const [jobCardId, setJobCardId] = useState(null);
   const [jobCardLength, setJobCardLength] = useState(null);
   const [goldRows, setGoldRows] = useState([
-    { itemName: "", weight: "", touch: "91.70" },
+    { username: localStorage.getItem("username"),itemName: "", weight: "", touch: "91.70" },
   ]);
   const [itemRows, setItemRows] = useState([
     { weight: "", itemName: "", sealName: "" },
@@ -79,6 +79,7 @@ const SrJobCard = () => {
     setJobCardIndex(jobindex);
 
     const tempJobCard = [...jobCards];
+    console.log("tempJobCard", tempJobCard);
     const filteredJobcard = tempJobCard.filter((item, _) => item.id === id);
     console.log("filter", filteredJobcard);
     setGoldRows(
@@ -170,7 +171,7 @@ const SrJobCard = () => {
       }));
       setopen(false);
       setEdit(false);
-      setGoldRows([{ itemName: "", weight: "", touch: "91.70" }]);
+      setGoldRows([{ username: localStorage.getItem("username"),itemName: "", weight: "", touch: "91.70" }]);
       setItemRows([{ weight: "", itemName: "" }]);
       setDeductionRows([{ type: "Stone", customType: "", weight: "" }]);
       setReceived([]);
@@ -231,7 +232,7 @@ const SrJobCard = () => {
           balance: response.data.goldSmithBalance.balance,
         },
       }));
-      setGoldRows([{ itemName: "", weight: "", touch: "91.70" }]);
+      setGoldRows([{username: localStorage.getItem("username"), itemName: "", weight: "", touch: "91.70" }]);
       setItemRows([{ weight: "", itemName: "" }]);
       setDeductionRows([{ type: "Stone", customType: "", weight: "" }]);
       setReceived([]);
@@ -287,7 +288,7 @@ const SrJobCard = () => {
   }, []);
   const handleClosePop = () => {
     setopen(false);
-    setGoldRows([{ itemName: "", weight: "", touch: "91.70" }]);
+    setGoldRows([{username: localStorage.getItem("username"), itemName: "", weight: "", touch: "91.70" }]);
     setItemRows([{ weight: "", itemName: "" }]);
     setDeductionRows([{ type: "Stone", customType: "", weight: "" }]);
     setReceived([]);

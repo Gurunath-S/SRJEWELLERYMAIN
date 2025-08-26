@@ -40,7 +40,7 @@ const createJobCard = async (req, res) => {
 
     // GivenGold data
     const givenGoldArr = goldRows.map((item) => ({
-     
+      username: item.username || null,
       itemName: item.itemName || null,
       weight:item.weight*1,
       touch: parseFloat(item.touch)||null,
@@ -200,10 +200,6 @@ const updateJobCard = async (req, res) => {
         }
     })
    
-  
-
-    
-    
     
     for(const gold of goldRows){
       if(gold?.id){ //if id is there update or create
@@ -212,6 +208,7 @@ const updateJobCard = async (req, res) => {
                id:gold.id,
             },
           data:{
+            username: gold.username|| null,
             itemName:gold.itemName|| null,
             weight:parseFloat(gold.weight),
             touch: parseFloat(gold.touch),
@@ -221,6 +218,7 @@ const updateJobCard = async (req, res) => {
         await prisma.givenGold.create({
          data:{
             jobcardId:parseInt(jobCardId),
+            username: gold.username|| null,
             itemName:gold.itemName|| null,
             weight: parseFloat(gold.weight),
             touch: parseFloat(gold.touch),

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
-import srlogo from "../../Assets/srlogo.png"
+import srlogo from "../../Assets/srlogo.png";
 import { BACKEND_SERVER_URL } from "../../Config/Config";
 import "./Login.css";
 
@@ -14,13 +14,18 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("token");
+  if (token) {
+    const role = localStorage.getItem("userRole");
+    return <Navigate to={role === "admin" ? "/master" : "/goldsmith"} replace />;
+  }
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
 
-    // Clear error when user starts typing
     if (error) setError("");
   };
 
@@ -38,13 +43,9 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
 
-      console.log(formData);
-      console.log("Response:", response);
-
       const data = await response.json();
 
       if (response.ok) {
-        // Check if user account is active
         if (data.isActive === false) {
           setError(
             "Your account has been deactivated. Please contact an administrator."
@@ -52,7 +53,7 @@ const Login = () => {
           return;
         }
 
-        // Store token and user info
+        // Save user data
         localStorage.setItem("username", data.username);
         localStorage.setItem("token", data.token);
         localStorage.setItem("userRole", data.role);
@@ -95,7 +96,6 @@ const Login = () => {
           </div>
 
           <h1 className="brand-name">SR Jewelry</h1>
-
           <p className="brand-tagline">
             Timeless elegance, crafted to perfection
           </p>
@@ -123,10 +123,7 @@ const Login = () => {
                 required
                 className="form-input"
                 autoComplete="off"
-                style={{
-                  outline: "none",
-                  boxShadow: "none",
-                }}
+                style={{ outline: "none", boxShadow: "none" }}
               />
             </div>
           </div>
@@ -134,7 +131,6 @@ const Login = () => {
           <div className="form-group">
             <div className="input-wrapper">
               <FaLock className="input-icon" />
-
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -143,12 +139,8 @@ const Login = () => {
                 onChange={handleChange}
                 required
                 className="form-input"
-                style={{
-                  outline: "none",
-                  boxShadow: "none",
-                }}
+                style={{ outline: "none", boxShadow: "none" }}
               />
-
               <button
                 type="button"
                 className="password-toggle"
@@ -160,7 +152,6 @@ const Login = () => {
             {error && <div className="error-message">{error}</div>}
           </div>
 
-          
           <button
             type="submit"
             disabled={loading}
