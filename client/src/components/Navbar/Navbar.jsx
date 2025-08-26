@@ -3,9 +3,6 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { FiLogOut, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import logo from '../../Assets/srlogo.png'
 
-
-
-
 const Navbar = () => {
   const navigate = useNavigate();
   const [showReports, setShowReports] = useState(false);
@@ -18,6 +15,12 @@ const currentPath = location.pathname;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("username");
+    localStorage.removeItem('goldsmithAccess');
+    localStorage.removeItem('itemMasterAccess');
+    localStorage.removeItem('sealMasterAccess');
+    localStorage.removeItem('canCreateUser');
     window.location.href = "/";
   };
 

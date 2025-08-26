@@ -3,24 +3,38 @@ import { useNavigate } from "react-router-dom";
 import Mastergoldsmith from "./Mastergoldsmith";
 import Masteradditems from "./Masteradditems";
 import MasterSeal from "./MasterSeal";
+import AllUser from "../Allusers/AllUsers";
 import { FiLogOut, FiArrowLeft } from "react-icons/fi";
 
 const Master = () => {
   const [activeTab, setActiveTab] = useState("goldsmith");
   const navigate = useNavigate();
 
+  const userRole           = localStorage.getItem("userRole");
+  const goldsmithAccess    =  localStorage.getItem('goldsmithAccess');
+  const itemMasterAccess   =      localStorage.getItem('itemMasterAccess');
+  const sealMasterAccess   =    localStorage.getItem('sealMasterAccess');
+  const canCreateUser      =  localStorage.getItem('canCreateUser');
+  console.log('canCreateUser:', canCreateUser);
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("username");  
+    localStorage.removeItem('goldsmithAccess');
+    localStorage.removeItem('itemMasterAccess');
+    localStorage.removeItem('sealMasterAccess');
+    localStorage.removeItem('canCreateUser');
+
     navigate("/");
   };
 
   const handleBack = () => {
     navigate("/goldsmith");
   };
-
 
   const getNavButtonStyle = (tab) => ({
     ...navButton,
@@ -69,25 +83,33 @@ const Master = () => {
            Home
           </button>
           
-          <button
+          {goldsmithAccess.toLocaleLowerCase() === "true" &&<button
             onClick={() => handleTabChange("goldsmith")}
             style={getNavButtonStyle("goldsmith")}
           >
             Goldsmith
-          </button>
+          </button>}
 
-          <button
+          {itemMasterAccess.toLocaleLowerCase() === "true" &&<button
             onClick={() => handleTabChange("items")}
             style={getNavButtonStyle("items")}
           >
             Item Master
-          </button>
-           <button
+          </button>}
+          {sealMasterAccess.toLocaleLowerCase() === "true" &&<button
             onClick={() => handleTabChange("seal")}
             style={getNavButtonStyle("seal")}
           >
             seal Master
-          </button>
+          </button>}
+          {(userRole === "admin" || canCreateUser.toLocaleLowerCase() === "true") ? (
+                  <button
+                    onClick={() => handleTabChange("allusers")}
+                    style={getNavButtonStyle("allusers")}
+                  >
+                    All Users
+                  </button>
+                ):""}  
 
         </div>
 
@@ -101,6 +123,7 @@ const Master = () => {
         {activeTab === "goldsmith" &&<Mastergoldsmith />}
         {activeTab === "items" &&<Masteradditems />}
         {activeTab === "seal" && <MasterSeal/>}
+        {activeTab === "allusers" && <AllUser />}
       </div>
 
     </div>

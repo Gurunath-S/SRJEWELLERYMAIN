@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaTrash } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import "./billing.css";
+import "./Billing.css";
 
 const Billing = () => {
   const [customers, setCustomers] = useState([]);

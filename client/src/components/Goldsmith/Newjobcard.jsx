@@ -3,7 +3,9 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import { MdDeleteForever } from "react-icons/md";
 import { FaWeight } from "react-icons/fa";
-import "./NewJobCard.css";
+import "./Newjobcard.css";
+import Tooltip from '@mui/material/Tooltip';
+
 import {
   goldRowValidation,
   receiveRowValidation,
@@ -62,6 +64,13 @@ const NewJobCard = ({
   const [finalTotal, setFinalTotal] = useState(0);
   const [balanceDifference, setBalanceDifference] = useState(0);
   const [time, setTime] = useState("");
+
+  const userRole = localStorage.getItem("userRole");
+  const canCreateUser = localStorage.getItem("canCreateUser");
+  const username = localStorage.getItem("username");
+  console.log("canCreateUser", canCreateUser);
+  console.log("userRole", userRole);
+  console.log("username", username);
 
   const calculatePurity = (w, t) =>
     !isNaN(w) && !isNaN(t) ? ((w * t) / 100).toFixed(3) : "";
@@ -389,12 +398,16 @@ const NewJobCard = ({
               <div className="goldGrid">
                 {goldRows.map((row, i) => (
                   <div key={i} className="row">
-                    <div>
+                     <Tooltip title={row.username} arrow>
+                    <div className="username-container">
+                      <span className="input givenInput" id="username">{row.username}</span>
+                    </div>
+                    </Tooltip>
+                    
+                    <div className="item-container">
                       <select
                         value={row.itemName || ""}
-                        onChange={(e) =>
-                          handleGoldRowChange(i, "itemName", e.target.value)
-                        }
+                        onChange={(e) => handleGoldRowChange(i, "itemName", e.target.value)}
                         className="select givenGoldSelect"
                       >
                         <option value="">Select Item</option>
@@ -403,64 +416,58 @@ const NewJobCard = ({
                             {option.itemName}
                           </option>
                         ))}
-                      </select>{" "}
-                      <br></br>
+                      </select>
                       {formErrors[i]?.itemName && (
                         <span className="error">{formErrors[i]?.itemName}</span>
                       )}
                     </div>
-                    <div>
+                    
+                    <div className="weight-icon-container">
                       <img
                         src={weight}
                         className="weight"
-                        onClick={() => {
-                          getGivenWeight(i);
-                        }}
-                      ></img>
+                        onClick={() => getGivenWeight(i)}
+                        alt="Weight"
+                     
+                      />
                     </div>
-
-                    <div>
+                    
+                    <div className="weight-container">
                       <input
                         type="text"
                         placeholder="Weight"
                         value={row.weight}
-                        onChange={(e) =>
-                          handleGoldRowChange(i, "weight", e.target.value)
-                        }
+                        onChange={(e) => handleGoldRowChange(i, "weight", e.target.value)}
                         className="input givenInput"
-                      />{" "}
-                      <br></br>
+                      />
                       {formErrors[i]?.weight && (
                         <span className="error">{formErrors[i].weight}</span>
                       )}
                     </div>
-
-                    <div>
-                      {" "}
-                      <span className="operator">x</span>
+                    
+                    <div className="operator-container">
+                      <span className="operator">×</span>
                     </div>
-                    <div>
+                    
+                    <div className="touch-container">
                       <input
                         type="text"
                         placeholder="Touch"
                         value={row.touch}
-                        onChange={(e) =>
-                          handleGoldRowChange(i, "touch", e.target.value)
-                        }
+                        onChange={(e) => handleGoldRowChange(i, "touch", e.target.value)}
                         className="input givenTouch"
+                       
                       />
-                      <br></br>
                       {formErrors[i]?.touch && (
                         <span className="error">{formErrors[i].touch}</span>
                       )}
                     </div>
-                    <div>
+                    
+                    <div className="delete-container">
                       {!row.id && (
                         <MdDeleteForever
                           className="deleteIcon"
-                          onClick={() => {
-                            handleRemovegold(i);
-                          }}
+                          onClick={() => handleRemovegold(i)}
                         />
                       )}
                     </div>
@@ -472,7 +479,7 @@ const NewJobCard = ({
                   onClick={() =>
                     setGoldRows([
                       ...goldRows,
-                      { itemName: "", weight: "", touch: 91.7 },
+                      { username: localStorage.getItem("username") || "", itemName: "", weight: "", touch: 91.7 },
                     ])
                   }
                   className="circle-button"
@@ -519,8 +526,9 @@ const NewJobCard = ({
               <div className="itemsGrid">
                 {itemRows.map((item, i) => (
                   <div key={i} className="row">
-                    <div>
+                    <div className="item-select">
                       <input
+                      
                         type="text"
                         placeholder="Item Weight"
                         value={item.weight}
@@ -529,6 +537,7 @@ const NewJobCard = ({
                         }
                         className="input"
                         disabled={!edit}
+                        
                       />
                       <br></br>
                       {itemErrors[i]?.weight && (
@@ -548,14 +557,15 @@ const NewJobCard = ({
                       )}
                     </div>
 
-                    <div>
+                    <div className="item-select">
                       <select
                         value={item.itemName || ""}
                         onChange={(e) =>
                           handleItemRowChange(i, "itemName", e.target.value)
                         }
-                        className="select"
+                        className="select "
                         disabled={!edit}
+                       
                       >
                         <option value="">Select Item</option>
                         {masterItems.map((option, index) => (
@@ -570,13 +580,14 @@ const NewJobCard = ({
                       )}
                     </div>
                     {/* sealName */}
-                    <div>
+                    <div className="item-select"> 
                       <select
                         value={item.sealName || ""}
                         onChange={(e) =>
                           handleItemRowChange(i, "sealName", e.target.value)
                         }
-                        className="select givenGoldSelect"
+                        className="select"
+                       
                       >
                         <option value="">SealItem</option>
                         {masterSeal.map((option, index) => (
