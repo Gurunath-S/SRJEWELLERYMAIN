@@ -23,174 +23,216 @@ import Customerorders from "./components/Customer/Customerorders";
 import Orderreport from "./components/Report/orderreport";
 import SrJobCard from "./components/Goldsmith/SrJobCard";
 import JobCardReport from "./components/Report/SrJobCardReport";
-import './App.css'
+import ProtectedRoutes from "./ProtectedRoutes/protected.routes";
+import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
-        <Route path="/home" element={<Home />} />
         <Route path="/" element={<Login />} />
-        {/* <Route path="/home" element={<Home />} /> */}
+        <Route path="/home" element={<Home />} />
 
-        {/* Protected routes for regular users */}
+        {/* Protected routes */}
         <Route
           path="/customer"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Customer />
-              </PageWithNavbar>   
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/goldsmith"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Goldsmith />
-              </PageWithNavbar>       
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/bill"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Billing />
               </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/report"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Report />
-              </PageWithNavbar>        
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/customerreport"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <CustomerReport />
-              </PageWithNavbar>          
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/overallreport"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Overallreport />
-              </PageWithNavbar>      
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/orderreport"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Orderreport />
-              </PageWithNavbar>      
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/receiptreport"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <ReceiptReport />
-              </PageWithNavbar>        
-          }
+              </PageWithNavbar>
+            </ProtectedRoutes>
+          }User Management
+
+Create and manage user accounts
         />
         <Route
           path="/receiptvoucher"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Receipt />
-              </PageWithNavbar>      
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/stock"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Stock />
-              </PageWithNavbar>  
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/customertrans"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Customertrans />
-              </PageWithNavbar>  
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/customerorders"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Customerorders />
-              </PageWithNavbar>   
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/jobCardReport"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <JobCardReport />
               </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/goldsmithdetails/:id/:name"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <GoldsmithDetails />
               </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/jobcarddd"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <Jobcarddd />
-              </PageWithNavbar>  
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/jobcardddReport"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
                 <JobcardddReport />
-              </PageWithNavbar>          
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/jobcard/:id/:goldsmithname"
           element={
+            <ProtectedRoutes>
               <PageWithNavbar>
-                <SrJobCard/>
-              </PageWithNavbar>            
+                <SrJobCard />
+              </PageWithNavbar>
+            </ProtectedRoutes>
           }
         />
         <Route
           path="/addcustomer"
           element={
-              <AddCustomer />            
+            <ProtectedRoutes>
+              <AddCustomer />
+            </ProtectedRoutes>
           }
         />
+
         {/* Admin-only routes */}
-        <Route 
-          path="/master" 
+        <Route
+          path="/master"
           element={
-              <Master />            
-          } 
+            <ProtectedRoutes>
+              <Master />
+            </ProtectedRoutes>
+          }
         />
-        <Route 
-          path="/mastercustomer" 
+        <Route
+          path="/mastercustomer"
           element={
-              <MasterCustomer />            
-          } 
+            <ProtectedRoutes>
+              <MasterCustomer />
+            </ProtectedRoutes>
+          }
         />
-        
       </Routes>
     </BrowserRouter>
   );
@@ -208,9 +250,7 @@ function PageWithNavbar({ children }) {
       <div className="noPrint-nav">
         <Navbar />
       </div>
-      <div style={{ paddingTop: '64px' }}>
-        {children}
-      </div>
+      <div style={{ paddingTop: "64px" }}>{children}</div>
     </>
   );
 }

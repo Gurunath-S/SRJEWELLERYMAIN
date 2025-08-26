@@ -123,12 +123,14 @@
 /* Optimized container sizes to prevent overflow */
 .username-container {
   width: 68px;
+
 }
 
 .username-container .input {
   width: 100%;
   font-size: 0.85rem;
   padding: 2px;
+  height: 1.55rem;
   border: 1px solid #ccc;
 }
 

@@ -234,7 +234,7 @@ const handleSubmit = async (e) => {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
-                type="password"
+                type="text"
                 id="password"
                 name="password"
                 placeholder="Enter password"
@@ -331,7 +331,8 @@ const handleSubmit = async (e) => {
 
       {/* Users Table */}
       <div className="users-table-section">
-        <h2 className="section-title">All Users ({users.length})</h2>
+        <h2 className="section-title">All Users ({users.filter((u) => u.role !== "admin").length}) </h2>
+        {/* <h2 className="section-title">All Users ({users.length})</h2> */}
         {users.length === 0 ? (
           <div className="no-users">
             <FiUser className="no-users-icon" />
@@ -353,8 +354,10 @@ const handleSubmit = async (e) => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
-                  <tr key={user.id} className={!user.isActive ? 'inactive-user' : ''}>
+              {users
+                .filter((user) => user.role !== "admin") // 🚀 filter out admins
+                .map((user) => (
+                  <tr key={user.id} className={!user.isActive ? "inactive-user" : ""}>
                     <td className="username-cell">
                       <div className="user-info">
                         <FiUser className="user-avatar" />
@@ -366,45 +369,54 @@ const handleSubmit = async (e) => {
                         {user.role || ""}
                       </span>
                     </td>
-                     {(userRole === "admin" || canCreateUser) ? (
-                    <td       >
-                      <button
-                        className={`status-btn ${user.isActive ? 'active' : 'inactive'}`}
-                        onClick={() => handleToggleStatus(user.id, user.isActive)}
-                        title={`Click to ${user.isActive ? 'deactivate' : 'activate'}`}
-                      >
-                        {user.isActive ? (
-                          <>
-                            <FiUserCheck className="status-icon" />
-                            Active
-                          </>
-                        ) : (
-                          <>
-                            <FiUserX className="status-icon" />
-                            Inactive
-                          </>
-                        )}
-                      </button>
-                    </td> ):null}
+                    {(userRole === "admin" || canCreateUser) ? (
+                      <td>
+                        <button
+                          className={`status-btn ${user.isActive ? "active" : "inactive"}`}
+                          onClick={() => handleToggleStatus(user.id, user.isActive)}
+                          title={`Click to ${user.isActive ? "deactivate" : "activate"}`}
+                        >
+                          {user.isActive ? (
+                            <>
+                              <FiUserCheck className="status-icon" />
+                              Active
+                            </>
+                          ) : (
+                            <>
+                              <FiUserX className="status-icon" />
+                              Inactive
+                            </>
+                          )}
+                        </button>
+                      </td>
+                    ) : null}
                     <td>
-                      <span >
-                        {user.goldsmithAccess ? <FaRegCircleCheck style={{color:"green",fontSize:25}} /> : <FaRegCircleXmark style={{color:"red",fontSize:25}} /> }
-                      </span>
+                      {user.goldsmithAccess ? (
+                        <FaRegCircleCheck style={{ color: "green", fontSize: 25 }} />
+                      ) : (
+                        <FaRegCircleXmark style={{ color: "red", fontSize: 25 }} />
+                      )}
                     </td>
                     <td>
-                      <span >
-                        {user.itemMasterAccess ? <FaRegCircleCheck style={{color:"green",fontSize:25}} /> : <FaRegCircleXmark style={{color:"red",fontSize:25}} /> }
-                      </span>
+                      {user.itemMasterAccess ? (
+                        <FaRegCircleCheck style={{ color: "green", fontSize: 25 }} />
+                      ) : (
+                        <FaRegCircleXmark style={{ color: "red", fontSize: 25 }} />
+                      )}
                     </td>
                     <td>
-                      <span >
-                        {user.sealMasterAccess ? <FaRegCircleCheck style={{color:"green",fontSize:25}} /> : <FaRegCircleXmark style={{color:"red",fontSize:25}} /> }
-                      </span>
+                      {user.sealMasterAccess ? (
+                        <FaRegCircleCheck style={{ color: "green", fontSize: 25 }} />
+                      ) : (
+                        <FaRegCircleXmark style={{ color: "red", fontSize: 25 }} />
+                      )}
                     </td>
                     <td>
-                      <span >
-                        {user.canCreateUser ? <FaRegCircleCheck style={{color:"green",fontSize:25}} /> : <FaRegCircleXmark style={{color:"red",fontSize:25}} /> }
-                      </span>
+                      {user.canCreateUser ? (
+                        <FaRegCircleCheck style={{ color: "green", fontSize: 25 }} />
+                      ) : (
+                        <FaRegCircleXmark style={{ color: "red", fontSize: 25 }} />
+                      )}
                     </td>
                     <td>
                       <div className="action-buttons">
@@ -426,7 +438,7 @@ const handleSubmit = async (e) => {
                     </td>
                   </tr>
                 ))}
-              </tbody>
+            </tbody>
             </table>
           </div>
         )}
