@@ -1,4 +1,3 @@
-
 .container {
     min-width: 700px;
     margin: 5px auto;
@@ -82,27 +81,186 @@
   
  .itemsGrid {
   display: grid;
-  grid-template-columns: 1fr auto ; /* 8 columns */
+  grid-template-columns: 1fr auto ; 
   gap: 1.5px;
   align-items: center;
 }
-.goldGrid{
+
+/* 2-column layout for gold rows - fixed overflow issue */
+.goldGrid {
   display: grid;
-  grid-template-columns: 1fr auto ; /* 8 columns */
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.goldGrid .row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+/* Alternating pattern */
+.goldGrid .row:nth-child(odd) {
+  grid-column: 1;
+}
+
+.goldGrid .row:nth-child(even) {
+  grid-column: 2;
+}
+
+.goldGrid .row > div {
+  flex-shrink: 0;
+}
+
+/* Optimized container sizes to prevent overflow */
+.username-container {
+  width: 68px;
+}
+
+.username-container .input {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+
+.item-container {
+  width: 85px;
+}
+
+.item-container select {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 3px;
+  border: 1px solid #ccc;
+}
+
+.weight-icon-container {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.weight-icon-container .weight {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.weight-container {
+  width: 58px;
+}
+
+.weight-container input {
+  margin-left: 2px;
+  width: 120%;
+  font-size: 0.85rem;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+
+.operator-container {
+  margin-left: 10px;
+  width: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.touch-container {
+  width: 40px;
+}
+
+.touch-container input {
+  width: 100%;
+  font-size: 0.80rem;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+
+.delete-container {
+  width: 22px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+}
+
+.delete-container .deleteIcon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Hide validation errors in gold grid to save space */
+.goldGrid .error {
+  display: none;
+}
+
+/* Specific container styling for better organization */
+.username-container {
+  display: flex;
   align-items: center;
 }
 
+.item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+.weight-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  
+.weight-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.operator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.touch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.delete-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
   .input {
     flex: 1;
     padding: 5px 5px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border-radius: 6px;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    width: 100px;
+    width: 75px;
     transition: border-color 0.3s ease;
   }
  
@@ -136,7 +294,6 @@
   width:60px
 }
 
-
   
   .circle-button {
     font-size: 1.3rem;
@@ -168,14 +325,16 @@
   .select {
     flex: 1;
     padding: 5px 5px;
-    font-size: 1rem;
+    font-size: 0.85rem;
     border-radius: 6px;
     border: 1px solid #ccc;
     background-color: #fff;
     cursor: pointer;
     box-sizing: border-box;
     min-width: 100px;
+    width: 75px;
     transition: border-color 0.3s ease;
+     /* style={{width:'75px',fontSize:'0.85rem'}} */
   }
   
   .select:focus {
@@ -316,7 +475,6 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
-  
 }
 
 .deduction-select {
@@ -376,9 +534,7 @@
   font-size: 0.75rem;
 }
 
-  
-  
-  
+
   .final-balance-section {
     margin-top: 10px;
     padding-top: 10px;
@@ -477,97 +633,392 @@
   width:50px; 
 }
 
+@media (max-width: 1200px) {
+  .goldGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .goldGrid .row {
+    grid-template-columns: 100px 130px 35px 90px 18px 70px 35px;
+    gap: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  .goldGrid .row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .goldGrid .row > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
 
 @media print {
   @page {
-    size: A6;
-    margin: 2mm;
-    
+    size: auto;
+    margin: 4mm;
   }
 
-  html, body {
-    font-size: 14.5px !important;
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: white !important;
+    font-size: 9px;
+    line-height: 1.1;
+  }
+
+  .MuiDialog-root,
+  .MuiDialog-container {
+    display: block !important;
+    position: static !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .MuiDialog-paper {
+    box-shadow: none !important;
+    border: none !important;
     width: 100% !important;
-    height: auto !important;
+    max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-  }
-  
-  .deduction-section{
-    flex: 2 !important;
-  }
-  .wastageSection{
-    flex: 2 !important;
-  }
-  
- .deduction-section{
-  max-width: 80px !important;
- }
-.deduction-select{
-  width: 80px !important;
-  font-size: 12px !important;
-}
-.deduction-input {
-  width: 65px !important;
-}
-.wastageInputBox input {
-  width: 85px !important;
-}
-.watageGoldSmith input{
-  width: 60px !important;
-}
-.givenTouch{
- width: 50px !important;
-}
-.givenInput{
-  width: 80px !important;
-}
-
-
-
-.select,.deduction-select{
-     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-
-
- 
-
-  .jobcard-page.print-jobcard {
-   
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
   }
 
   .container {
+    min-width: unset !important;
     width: 100% !important;
-    max-width: 148mm !important;  /* A6 width */
-    margin: 0 auto !important;
-    padding: 5px 95px !important;
-    border-radius: 0 !important;
-    box-sizing: border-box !important;
-    box-shadow: none !important ;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 2mm !important;
+    font-size: inherit;
+    box-sizing: border-box;
+    background-color: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1) !important;
   }
 
-  .jobcard-dialog {
+  .header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 1mm !important;
+    font-size: 0.9em;
+  }
+
+  .header-item {
+    font-size: inherit !important;
+    color: #333 !important;
+  }
+
+  .header-label {
+    font-weight: bold !important;
+    margin-right: 5px !important;
+    color: #555 !important;
+  }
+
+  .section {
+    background-color: #fefefe !important;
+    border-radius: 8px !important;
+    border: 2px solid #3498db !important;
+    padding: 2mm !important;
+    margin-bottom: 1mm !important;
+    page-break-inside: avoid;
+  }
+
+  .recevedSection {
+    background-color: #fefefe !important;
+    border-top: 2px solid #3498db !important;
+    padding-top: 2mm !important;
+  }
+
+  .Balance {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .section-title {
+    margin-top: 0 !important;
+    font-size: 1em !important;
+    color: #2c3e50 !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .goldGrid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2mm !important;
+    align-items: start !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .goldGrid .row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1mm !important;
+    padding: 0.5mm !important;
+    margin-bottom: 1mm !important;
     width: 100% !important;
-    height: auto !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .goldGrid .row:nth-child(odd) {
+    grid-column: 1 !important;
+  }
+
+  .goldGrid .row:nth-child(even) {
+    grid-column: 2 !important;
+  }
+
+  .username-container {
+    width: 68px !important;
+  }
+
+  .item-container {
+    width: 50px !important;
+    margin-left: 20px;
+  }
+
+  .weight-icon-container {
+    width: 20px !important;
+    height: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .weight-container {
+    width: 58px !important;
+  }
+
+  .operator-container {
+    width: 12px !important;
+    text-align: center !important;
+    font-size: 0.8em !important;
+    font-weight: bold !important;
+  }
+
+  .touch-container {
+    width: 40px !important;
+  }
+
+  .input,
+  .select,
+  .givenInput,
+  .givenTouch,
+  .givenGoldSelect {
+    font-size: 0.8em !important;
+    padding: 0.5mm !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .weight {
+    width: 18px !important;
+    height: 18px !important;
+    object-fit: contain !important;
+    cursor: pointer !important;
+  }
+
+  .itemsGrid {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 1mm !important;
+    align-items: center !important;
+  }
+
+  .itemsGrid .row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2mm !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .wastageBox {
+    display: flex !important;
+    gap: 2mm !important;
+    align-items: flex-start !important;
+    border-top: 2px solid #3498db !important;
+    padding-top: 2mm !important;
+  }
+
+  .deduction-section {
+    flex: 1 !important;
+    min-width: 0 !important;
+    border-right: 2px solid #3498db !important;
+    padding-right: 2mm !important;
+  }
+
+  .wastageSection {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .deduction-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1mm !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .deduction-select,
+  .deduction-input {
+    font-size: 0.8em !important;
+    padding: 0.5mm !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    width: 80px !important;
+    box-sizing: border-box !important;
+  }
+
+  .wastageInputBox {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1mm !important;
+  }
+
+  .wastageInputBox input {
+    font-size: 0.8em !important;
+    padding: 0.5mm !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    width: 70px !important;
+    box-sizing: border-box !important;
+  }
+
+  .operator {
+    font-size: 1em !important;
+    font-weight: bold !important;
+    color: #777 !important;
+  }
+
+  .total-gold-container,
+  .total-purity-container,
+  .finalTotalContainer {
+    font-size: 0.9em !important;
+    margin: 1mm 0 !important;
+  }
+
+  .total-gold-label,
+  .total-purity-label {
+    font-weight: bold !important;
+    color: #555 !important;
+  }
+
+  .total-gold-value,
+  .total-purity-value {
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    font-size: 1em !important;
+  }
+
+  .finalTotal {
+    padding-bottom: 1mm !important;
+    color: #2c3e50 !important;
+    font-size: 1em !important;
+  }
+
+  .balance-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    margin-top: 1mm !important;
+  }
+
+  .balance-display-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    padding-bottom: 1mm !important;
+  }
+
+  .balance-label {
+    font-weight: bold !important;
+    color: #555 !important;
+    margin-right: 15px !important;
+  }
+
+  .balance-value {
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    font-size: 1em !important;
+  }
+
+  .balanceLine {
+    border-bottom: 2px solid black !important;
+  }
+
+  .net-weight-display {
+    font-size: 1em !important;
+    font-weight: bold !important;
+    color: #0f7ae5 !important;
+    margin-top: 2mm !important;
+    padding-bottom: 1mm !important;
+  }
+
+  .net-weight-value {
+    color: #e74c3c !important;
+  }
+
+  .balance-text-owner {
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+    color: #dc3545 !important;
+    text-align: center !important;
+    margin-top: 2mm !important;
+  }
+
+  .balance-text-goldsmith {
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+    color: #28a745 !important;
+    text-align: center !important;
+    margin-top: 2mm !important;
+  }
+
+  .balance-amount {
+    font-size: 1.1em !important;
+    margin-left: 10px !important;
   }
 
   .circle-button,
-  .button,
-  .dialogTitle,
   .deleteIcon,
-  .weight {
+  .MuiButton-root {
     display: none !important;
+  }
+
+  .error {
+    display: none !important;
+  }
+
+  /* Single column for A6/A5 */
+  @media print and (max-width: 148mm) {
+    body { font-size: 8px !important; }
+    
+    .goldGrid {
+      grid-template-columns: 1fr !important;
+      gap: 1mm !important;
+    }
+    
+    .wastageBox {
+      flex-direction: column !important;
+      gap: 1mm !important;
+    }
+    
+    .deduction-section {
+      border-right: none !important;
+      border-bottom: 2px solid #3498db !important;
+      padding-right: 0 !important;
+      padding-bottom: 1mm !important;
+    }
   }
 }
 

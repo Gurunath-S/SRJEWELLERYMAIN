@@ -1,7 +1,7 @@
-
 import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
 import Customer from "./components/Customer/Customer";
 import Goldsmith from "./components/Goldsmith/Goldsmith";
 import Billing from "./components/Billing/Billing";
@@ -11,11 +11,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Master from "./components/Master/Master";
 import MasterCustomer from "./components/Master/Mastercustomer";
 import Customertrans from "./components/Customer/Customertrans";
-import Jobcard from "./components/Goldsmith/Jobcard";
 import AddCustomer from "./components/Billing/Addcustomer";
 import CustomerReport from "./components/Report/customer.report";
 import Overallreport from "./components/Report/overallreport";
-// import Jobcardreport from "./components/Report/jobcardreport";
 import GoldsmithDetails from "./components/Goldsmith/GoldsmithDetails";
 import Jobcarddd from "./components/Goldsmith/Jobcarddd";
 import JobcardddReport from "./components/Report/jobcardddReport";
@@ -23,7 +21,6 @@ import ReceiptReport from "./components/Report/receiptreport";
 import Receipt from "./components/ReceiptVoucher/receiptvoucher";
 import Customerorders from "./components/Customer/Customerorders";
 import Orderreport from "./components/Report/orderreport";
-import Newjobcard from "./components/Goldsmith/Newjobcard";
 import SrJobCard from "./components/Goldsmith/SrJobCard";
 import JobCardReport from "./components/Report/SrJobCardReport";
 import './App.css'
@@ -32,173 +29,168 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* Public routes */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        {/* <Route path="/home" element={<Home />} /> */}
 
+        {/* Protected routes for regular users */}
         <Route
           path="/customer"
           element={
-            <PageWithNavbar>
-              <Customer />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Customer />
+              </PageWithNavbar>   
           }
         />
         <Route
           path="/goldsmith"
           element={
-            <PageWithNavbar>
-              <Goldsmith />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Goldsmith />
+              </PageWithNavbar>       
           }
         />
         <Route
           path="/bill"
           element={
-            <PageWithNavbar>
-              <Billing />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Billing />
+              </PageWithNavbar>
           }
         />
         <Route
           path="/report"
           element={
-            <PageWithNavbar>
-              <Report />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Report />
+              </PageWithNavbar>        
           }
         />
         <Route
           path="/customerreport"
           element={
-            <PageWithNavbar>
-              <CustomerReport />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <CustomerReport />
+              </PageWithNavbar>          
           }
         />
         <Route
           path="/overallreport"
           element={
-            <PageWithNavbar>
-              <Overallreport />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Overallreport />
+              </PageWithNavbar>      
           }
         />
         <Route
           path="/orderreport"
           element={
-            <PageWithNavbar>
-              <Orderreport />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Orderreport />
+              </PageWithNavbar>      
           }
-        ></Route>
-        {/* <Route
-          path="/jobcardreport"
-          element={
-            <PageWithNavbar>
-              <Jobcardreport />
-            </PageWithNavbar>
-          }
-        /> */}
+        />
         <Route
           path="/receiptreport"
           element={
-            <PageWithNavbar>
-              <ReceiptReport />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <ReceiptReport />
+              </PageWithNavbar>        
           }
         />
         <Route
           path="/receiptvoucher"
           element={
-            <PageWithNavbar>
-              <Receipt />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Receipt />
+              </PageWithNavbar>      
           }
         />
         <Route
           path="/stock"
           element={
-            <PageWithNavbar>
-              <Stock />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Stock />
+              </PageWithNavbar>  
           }
         />
         <Route
           path="/customertrans"
           element={
-            <PageWithNavbar>
-              <Customertrans />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Customertrans />
+              </PageWithNavbar>  
           }
         />
         <Route
           path="/customerorders"
           element={
-            <PageWithNavbar>
-              <Customerorders />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Customerorders />
+              </PageWithNavbar>   
           }
         />
-        {/* <Route
-          path="/jobcard/:id/:name"
-          element={
-            <PageWithNavbar>
-              <Jobcard />
-            </PageWithNavbar>
-          }
-        /> */}
-        {/* <Route
-          path="/jobcard/:id/:name"
-          element={
-            <PageWithNavbar>
-             <Newjobcard/>
-            </PageWithNavbar>
-          }
-        /> */}
         <Route
           path="/jobCardReport"
           element={
-            <PageWithNavbar>
-              <JobCardReport />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <JobCardReport />
+              </PageWithNavbar>
           }
         />
         <Route
           path="/goldsmithdetails/:id/:name"
           element={
-            <PageWithNavbar>
-              <GoldsmithDetails />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <GoldsmithDetails />
+              </PageWithNavbar>
           }
         />
-         
         <Route
           path="/jobcarddd"
           element={
-            <PageWithNavbar>
-              <Jobcarddd />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <Jobcarddd />
+              </PageWithNavbar>  
           }
         />
         <Route
           path="/jobcardddReport"
           element={
-            <PageWithNavbar>
-              <JobcardddReport />
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <JobcardddReport />
+              </PageWithNavbar>          
           }
         />
-         <Route
+        <Route
           path="/jobcard/:id/:goldsmithname"
           element={
-            <PageWithNavbar>
-           <SrJobCard/>
-            </PageWithNavbar>
+              <PageWithNavbar>
+                <SrJobCard/>
+              </PageWithNavbar>            
           }
         />
-
-        <Route path="/master" element={<Master />} />
-        <Route path="/mastercustomer" element={<MasterCustomer />} />
-        <Route path="/addcustomer" element={<AddCustomer />} />
+        <Route
+          path="/addcustomer"
+          element={
+              <AddCustomer />            
+          }
+        />
+        {/* Admin-only routes */}
+        <Route 
+          path="/master" 
+          element={
+              <Master />            
+          } 
+        />
+        <Route 
+          path="/mastercustomer" 
+          element={
+              <MasterCustomer />            
+          } 
+        />
+        
       </Routes>
     </BrowserRouter>
   );
@@ -206,7 +198,7 @@ function App() {
 
 function PageWithNavbar({ children }) {
   const location = useLocation();
-  const hideNavbarPaths = ["/"];
+  const hideNavbarPaths = ["/", "/home"];
   if (hideNavbarPaths.includes(location.pathname)) {
     return children;
   }
@@ -214,14 +206,13 @@ function PageWithNavbar({ children }) {
   return (
     <>
       <div className="noPrint-nav">
-            <Navbar />
+        <Navbar />
       </div>
-    
-      {children}
+      <div style={{ paddingTop: '64px' }}>
+        {children}
+      </div>
     </>
   );
 }
 
 export default App;
-
-

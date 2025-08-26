@@ -1,0 +1,15 @@
+client/node_modules/
+server/node_modules/
+
+client/build/
+server/dist/
+
+*.log
+
+
+client/.env
+server/.env
+
+# OS / editor junk
+.DS_Store
+*.swp
