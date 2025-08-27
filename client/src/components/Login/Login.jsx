@@ -15,10 +15,11 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
-  if (token) {
-    const role = localStorage.getItem("userRole");
-    return <Navigate to={role === "admin" ? "/master" : "/goldsmith"} replace />;
-  }
+  
+  // if (token) {
+  //   const role = localStorage.getItem("userRole");
+  //   return <Navigate to={role === "admin" ? "/master" : "/goldsmith"} replace />;
+  // }
 
   const handleChange = (e) => {
     setFormData({
