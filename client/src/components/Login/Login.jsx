@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
 import srlogo from "../../Assets/srlogo.png";
-import { BACKEND_SERVER_URL } from "../../Config/Config";
+// import { BACKEND_SERVER_URL } from "../../Config/Config";
 import "./Login.css";
 
 const Login = () => {
@@ -36,7 +36,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await fetch('https://sr-jewellery-b.onrender.com/api/auth/login', {
+      const response = await fetch('https://sr-backend-u6ly.onrender.com/api/auth/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
