@@ -587,7 +587,6 @@ const NewJobCard = ({
                           handleItemRowChange(i, "sealName", e.target.value)
                         }
                         className="select"
-                       
                       >
                         <option value="">SealItem</option>
                         {masterSeal.map((option, index) => (
